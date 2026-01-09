@@ -5,3 +5,4 @@ numpy==1.24.3
 python-multipart==0.06
 openai==1.3.0
 elevenlabs==0.2.26
+pillow==10.2.0
