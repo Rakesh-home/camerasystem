@@ -12,13 +12,13 @@ from histogram_processor import HistogramProcessor
 from config import *
 from fastapi import UploadFile, File
 import base64
-from jarvis_voice import RobotAI
+#from jarvis_voice import RobotAI
 import asyncio
 
 
 
 app = FastAPI()
-robot_ai = RobotAI()
+#robot_ai = RobotAI()
 frontend_path = Path(__file__).parent.parent / "frontend"
 
 app.add_middleware(
