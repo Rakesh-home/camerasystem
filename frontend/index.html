@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeeDevice - PTZ Camera Control</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="robot-assistant.css">
+</head>
+<body>
+    <div class="container">
+        <div class="video-section">
+            <div class="header">
+                <h1>SeeDevice</h1>
+                <div class="status">
+                    <span id="connectionStatus" class="status-indicator"></span>
+                    <span id="statusText">Connecting...</span>
+                </div>
+            </div>
+            <div class="video-container">
+                <img id="videoFeed" src="/video_feed" alt="Camera Feed">
+            </div>
+        </div>
+
+        <div class="controls-section" id="mainControls">
+            <div class="control-group">
+                <h3>PTZ CONTROL</h3>
+                <div class="ptz-joystick">
+                    <button class="ptz-btn ptz-up" id="ptzUp">▲</button>
+                    <div class="ptz-middle">
+                        <button class="ptz-btn ptz-left" id="ptzLeft">◄</button>
+                        <div class="ptz-center"></div>
+                        <button class="ptz-btn ptz-right" id="ptzRight">►</button>
+                    </div>
+                    <button class="ptz-btn ptz-down" id="ptzDown">▼</button>
+                </div>
+                <div style="text-align: center; font-size: 11px; color: #666; margin-top: 8px;">
+                    Click = Small Step | Hold = Continuous
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>ZOOM</h3>
+                <div class="button-row">
+                    <button class="control-btn" id="zoomIn">+</button>
+                    <button class="control-btn" id="zoomOut">−</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>BRIGHTNESS</h3>
+                <input type="range" id="brightnessSlider" min="7" max="60" value="40" class="slider">
+                <div class="value-display" id="brightnessValue">20</div>
+                <div class="profile-status" id="profileStatus">Profile: Loading...</div>
+            </div>
+
+            <div class="control-group">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="voiceControl">
+                    <span class="checkmark"></span>
+                    <span class="label-text">🤖 Voice Control</span>
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="autoCorrections">
+                    <span class="checkmark"></span>
+                    <span class="label-text">Auto Corrections</span>
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="nlmDenoise">
+                    <span class="checkmark"></span>
+                    <span class="label-text">NLM Denoise (Slower)</span>
+                </label>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="horizontalFlip">
+                    <span class="checkmark"></span>
+                    <span class="label-text">🔄 Horizontal Flip</span>
+                </label>
+            </div>
+
+            <div class="control-group">
+                <button class="control-btn histogram-btn" id="histogramBtn">📊 HISTOGRAM</button>
+            </div>
+        </div>
+
+        <div class="controls-section hidden" id="histogramControls">
+            <div class="control-group">
+                <h3>HISTOGRAM</h3>
+                <canvas id="histogramCanvas" width="280" height="120"></canvas>
+            </div>
+
+            <div class="control-group">
+                <h3>BLACK POINT</h3>
+                <input type="range" id="minSlider" min="0" max="255" value="0" class="slider">
+                <div class="value-display" id="minValue">0</div>
+            </div>
+
+            <div class="control-group">
+                <h3>WHITE POINT</h3>
+                <input type="range" id="maxSlider" min="0" max="255" value="255" class="slider">
+                <div class="value-display" id="maxValue">255</div>
+            </div>
+
+            <div class="control-group">
+                <button class="control-btn back-btn" id="backBtn">← BACK</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="voiceIndicator" class="voice-indicator hidden">
+        <span>🎤 Listening...</span>
+    </div>
+
+    <!-- Robot Assistant will be injected here by JavaScript -->
+
+    <!-- Load scripts in correct order -->
+    <script src="app.js"></script>
+    <script src="histogram.js"></script>
+    <script src="robot-assistant.js"></script>
+    <script src="voicei.js"></script>
+</body>
+</html>

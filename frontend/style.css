@@ -1,0 +1,364 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #000000;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+.video-section {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    background: #0a0a0f;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #000000;
+    border-bottom: 2px solid #00f0ff;
+}
+
+h1 {
+    font-size: 24px;
+    color: #00f0ff;
+    text-shadow: 0 0 10px #00f0ff;
+    letter-spacing: 2px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.video-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#videoFeed {
+    max-width: 100%;
+    max-height: 100%;
+    border: 2px solid #00f0ff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+}
+
+.controls-section {
+    width: 30%;
+    background: #0a0a0f;
+    border-left: 2px solid #00f0ff;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.controls-section.hidden {
+    display: none;
+}
+
+.control-group {
+    background: #151520;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #1a1a2e;
+}
+
+.control-group h3 {
+    font-size: 12px;
+    color: #00f0ff;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.ptz-joystick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.ptz-middle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.ptz-btn {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+    border: 2px solid #00f0ff;
+    border-radius: 8px;
+    color: #00f0ff;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ptz-btn:hover {
+    background: #00f0ff;
+    color: #000000;
+    box-shadow: 0 0 15px #00f0ff;
+    transform: scale(1.05);
+}
+
+.ptz-btn:active {
+    transform: scale(0.95);
+}
+
+.ptz-center {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #00f0ff, #0066cc);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+.button-row {
+    display: flex;
+    gap: 10px;
+}
+
+.control-btn {
+    flex: 1;
+    padding: 12px;
+    background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+    border: 2px solid #00f0ff;
+    border-radius: 8px;
+    color: #00f0ff;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.control-btn:hover {
+    background: #00f0ff;
+    color: #000000;
+    box-shadow: 0 0 15px #00f0ff;
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+}
+
+.histogram-btn {
+    width: 100%;
+    font-size: 14px;
+}
+
+.back-btn {
+    width: 100%;
+    background: linear-gradient(145deg, #2e1a1a, #1a0f0f);
+    border-color: #ff4444;
+    color: #ff4444;
+}
+
+.back-btn:hover {
+    background: #ff4444;
+    color: #000000;
+    box-shadow: 0 0 15px #ff4444;
+}
+
+.slider {
+    width: 100%;
+    height: 6px;
+    background: #1a1a2e;
+    border-radius: 3px;
+    outline: none;
+    margin: 10px 0;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #00f0ff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px #00f0ff;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #00f0ff;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 10px #00f0ff;
+}
+
+.value-display {
+    text-align: center;
+    font-size: 18px;
+    color: #00f0ff;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.profile-status {
+    text-align: center;
+    font-size: 12px;
+    color: #888888;
+    margin-top: 5px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 4px;
+}
+
+.checkbox-container:hover {
+    background: #1a1a2e;
+}
+
+.checkbox-container input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00f0ff;
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkmark {
+    background: #00f0ff;
+    box-shadow: 0 0 10px #00f0ff;
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkmark::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.label-text {
+    font-size: 14px;
+    color: #ffffff;
+}
+
+#histogramCanvas {
+    width: 100%;
+    background: #000000;
+    border: 1px solid #00f0ff;
+    border-radius: 4px;
+}
+
+.voice-indicator {
+    display: none !important;
+}
+
+.voice-indicator.hidden {
+    display: none;
+}
+
+@keyframes voicePulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.05); }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0f;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00f0ff;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00ccdd;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .video-section {
+        width: 100%;
+        height: 60%;
+    }
+    
+    .controls-section {
+        width: 100%;
+        height: 40%;
+        border-left: none;
+        border-top: 2px solid #00f0ff;
+    }
+}
+
+@media (orientation: landscape) and (max-width: 1024px) {
+    .container {
+        flex-direction: row;
+    }
+    
+    .video-section {
+        width: 70%;
+        height: 100%;
+    }
+    
+    .controls-section {
+        width: 30%;
+        height: 100%;
+        border-left: 2px solid #00f0ff;
+        border-top: none;
+    }
+}

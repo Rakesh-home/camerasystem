@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS - PTZ Control System</title>
+    <link rel="stylesheet" href="jarvis.css">
+</head>
+<body>
+    <!-- Arc Reactor Background Effect -->
+    <div class="arc-reactor-bg"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="arc-reactor"></div>
+                <h1>J.A.R.V.IS</h1>
+            </div>
+            <div class="status-bar">
+                <div class="status-item">
+                    <span class="status-label">SYSTEM</span>
+                    <span class="status-value" id="systemStatus">ONLINE</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">CAMERA</span>
+                    <span class="status-value" id="cameraStatus">CONNECTED</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-label">AI</span>
+                    <span class="status-value" id="aiStatus">READY</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Video Feed -->
+            <div class="video-section">
+                <div class="video-container">
+                    <img id="videoFeed" src="/video_feed" alt="Camera Feed">
+                    <div class="video-overlay">
+                        <div class="scan-line"></div>
+                        <div class="hud-corners">
+                            <div class="corner top-left"></div>
+                            <div class="corner top-right"></div>
+                            <div class="corner bottom-left"></div>
+                            <div class="corner bottom-right"></div>
+                        </div>
+                    </div>
+                    <!-- Vision Analysis Overlay -->
+                    <div class="vision-overlay hidden" id="visionOverlay">
+                        <div class="vision-content">
+                            <div class="vision-header">VISION ANALYSIS</div>
+                            <div class="vision-text" id="visionText">Analyzing...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="control-panel">
+                <!-- JARVIS Avatar -->
+                <div class="jarvis-avatar" id="jarvisAvatar">
+                    <div class="avatar-ring"></div>
+                    <div class="avatar-core">
+                        <div class="core-inner"></div>
+                    </div>
+                    <div class="avatar-pulse"></div>
+                    <div class="avatar-status" id="avatarStatus">IDLE</div>
+                </div>
+
+                <!-- Voice Control -->
+                <div class="voice-control">
+                    <button class="voice-button" id="voiceButton">
+                        <div class="voice-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                                <line x1="12" y1="19" x2="12" y2="23"/>
+                                <line x1="8" y1="23" x2="16" y2="23"/>
+                            </svg>
+                        </div>
+                        <span>HOLD TO SPEAK</span>
+                    </button>
+                    
+                    <!-- Language Toggle -->
+                    <div class="language-toggle">
+                        <button class="lang-btn active" data-lang="en">EN</button>
+                        <button class="lang-btn" data-lang="ko">한국어</button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="action-btn" id="visionBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        <span>ANALYZE VIEW</span>
+                    </button>
+                    <button class="action-btn" id="stopBtn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <rect x="6" y="6" width="12" height="12"/>
+                        </svg>
+                        <span>STOP ALL</span>
+                    </button>
+                </div>
+
+                <!-- PTZ Controls -->
+                <div class="ptz-controls">
+                    <div class="control-group">
+                        <label>ZOOM</label>
+                        <div class="button-row">
+                            <button class="ptz-btn" data-action="zoom_in">+</button>
+                            <button class="ptz-btn" data-action="zoom_out">−</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label>FOCUS</label>
+                        <div class="button-row">
+                            <button class="ptz-btn" data-action="focus_in">NEAR</button>
+                            <button class="ptz-btn" data-action="focus_out">FAR</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label>PAN</label>
+                        <div class="button-row">
+                            <button class="ptz-btn" data-action="pan_left">◄</button>
+                            <button class="ptz-btn" data-action="pan_right">►</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brightness Control -->
+                <div class="brightness-control">
+                    <label>BRIGHTNESS</label>
+                    <input type="range" id="brightnessSlider" min="7" max="60" value="20">
+                    <span id="brightnessValue">20</span>
+                </div>
+
+                <!-- Command Log -->
+                <div class="command-log" id="commandLog">
+                    <div class="log-header">COMMAND LOG</div>
+                    <div class="log-content" id="logContent">
+                        <div class="log-entry">
+                            <span class="log-time">00:00:00</span>
+                            <span class="log-text">System initialized</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Player (hidden) -->
+    <audio id="jarvisAudio" preload="auto"></audio>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">PROCESSING...</div>
+    </div>
+
+    <script src="jarvis.js"></script>
+</body>
+</html>

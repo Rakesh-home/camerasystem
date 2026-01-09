@@ -1,0 +1,358 @@
+.robot-assistant,
+.robot-assistant *,
+.video-container,
+#videoFeed {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.robot-assistant {
+    position: fixed;
+    bottom: 20px;
+    left: auto;
+    right: 35%;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    gap: 15px;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    opacity: 0;
+    transform: translateY(150px);
+    pointer-events: none;
+}
+
+.robot-assistant.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.robot-assistant.dragging .message-box {
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.9);
+}
+
+.robot {
+    width: 80px;
+    height: 100px;
+    position: relative;
+    animation: robot-idle 3s ease-in-out infinite;
+    cursor: grab;
+}
+
+.robot:active {
+    cursor: grabbing;
+}
+
+.robot-head {
+    width: 60px;
+    height: 50px;
+    background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+    border-radius: 15px;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+    border: 2px solid #00f0ff;
+}
+
+.robot-antenna {
+    width: 3px;
+    height: 15px;
+    background: #00f0ff;
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: antenna-wiggle 2s ease-in-out infinite;
+}
+
+.robot-antenna::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #00f0ff;
+    border-radius: 50%;
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px #00f0ff;
+    animation: antenna-light 1.5s ease-in-out infinite;
+}
+
+.robot-eyes {
+    display: flex;
+    gap: 15px;
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.robot-eye {
+    width: 12px;
+    height: 12px;
+    background: #00f0ff;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 8px #00f0ff;
+}
+
+.robot-eye::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #000000;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    animation: eye-look 4s ease-in-out infinite;
+}
+
+.robot.sleeping .robot-eye {
+    height: 2px;
+    background: #555;
+    box-shadow: none;
+}
+
+.robot.listening .robot-eye {
+    background: #00ff00;
+    box-shadow: 0 0 15px #00ff00;
+}
+
+.robot.processing .robot-eye {
+    background: #ffcc00;
+    box-shadow: 0 0 15px #ffcc00;
+    animation: eye-pulse 0.5s ease-in-out infinite;
+}
+
+.robot-mouth {
+    width: 30px;
+    height: 3px;
+    background: #00f0ff;
+    border-radius: 2px;
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.robot.listening .robot-mouth {
+    border-radius: 0 0 15px 15px;
+    height: 8px;
+}
+
+.robot-body {
+    width: 50px;
+    height: 35px;
+    background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+    border-radius: 8px;
+    position: absolute;
+    top: 48px;
+    left: 15px;
+    border: 2px solid #00f0ff;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.robot-arm {
+    width: 6px;
+    height: 25px;
+    background: #00f0ff;
+    border-radius: 3px;
+    position: absolute;
+    top: 50px;
+}
+
+.robot-arm.left {
+    left: 5px;
+    animation: arm-wave-left 2s ease-in-out infinite;
+}
+
+.robot-arm.right {
+    right: 5px;
+    animation: arm-wave-right 2s ease-in-out infinite;
+}
+
+.robot-leg {
+    width: 8px;
+    height: 20px;
+    background: #00f0ff;
+    border-radius: 0 0 4px 4px;
+    position: absolute;
+    top: 80px;
+}
+
+.robot-leg.left {
+    left: 25px;
+}
+
+.robot-leg.right {
+    left: 47px;
+}
+
+.message-box {
+    width: 680px;
+    max-height: 200px;
+    background: rgba(10, 10, 15, 0.95);
+    border: 2px solid #00f0ff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.message-box-header {
+    background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+    padding: 8px 12px;
+    border-bottom: 1px solid #00f0ff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.message-box-title {
+    color: #00f0ff;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.message-box-close {
+    color: #00f0ff;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.message-box-close:hover {
+    opacity: 1;
+}
+
+.message-box-content {
+    padding: 10px;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.message-item {
+    padding: 6px 8px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.4;
+    border-left: 3px solid transparent;
+    animation: message-slide-in 0.3s ease-out;
+}
+
+.message-item.info {
+    background: rgba(0, 240, 255, 0.1);
+    border-left-color: #00f0ff;
+    color: #00f0ff;
+}
+
+.message-item.success {
+    background: rgba(0, 255, 0, 0.1);
+    border-left-color: #00ff00;
+    color: #00ff00;
+}
+
+.message-item.warning {
+    background: rgba(255, 204, 0, 0.1);
+    border-left-color: #ffcc00;
+    color: #ffcc00;
+}
+
+.message-item.error {
+    background: rgba(255, 68, 68, 0.1);
+    border-left-color: #ff4444;
+    color: #ff4444;
+}
+
+.message-time {
+    font-size: 10px;
+    opacity: 0.6;
+    margin-right: 6px;
+}
+
+@keyframes robot-idle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes antenna-wiggle {
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    25% { transform: translateX(-50%) rotate(-10deg); }
+    75% { transform: translateX(-50%) rotate(10deg); }
+}
+
+@keyframes antenna-light {
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px #00f0ff; }
+    50% { opacity: 0.5; box-shadow: 0 0 5px #00f0ff; }
+}
+
+@keyframes eye-look {
+    0%, 100% { left: 3px; }
+    50% { left: 5px; }
+}
+
+@keyframes eye-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+@keyframes arm-wave-left {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-15deg); }
+}
+
+@keyframes arm-wave-right {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+}
+
+@keyframes message-slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.message-box-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.message-box-content::-webkit-scrollbar-track {
+    background: #0a0a0f;
+}
+
+.message-box-content::-webkit-scrollbar-thumb {
+    background: #00f0ff;
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .robot-assistant {
+        bottom: 10px;
+        left: 10px;
+        transform: scale(0.8) translateY(150px);
+    }
+    
+    .robot-assistant.active {
+        transform: scale(0.8) translateY(0);
+    }
+    
+    .message-box {
+        width: 240px;
+        max-height: 120px;
+    }
+}
